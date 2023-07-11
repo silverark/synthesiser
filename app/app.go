@@ -1,6 +1,7 @@
 package app
 
 import (
+	"synth/app/notes"
 	"synth/app/output"
 )
 
@@ -34,10 +35,10 @@ func (a *App) Run() {
 	HighHatLoopPolyrhythm := Sequencer(highHat, 4*Bar, Bpm/3, true)
 	highHatLoop := highHatLoopStraight.Superpose(HighHatLoopPolyrhythm)
 
-	chord1 := NewAMinorChord(Bar, 1)
-	chord2 := NewEMinorChord(Bar, 1)
-	chord3 := NewDMinorChord(Bar, 1)
-	chord4 := NewGMajorChord(Bar, 1)
+	chord1 := NewChord(Bar, 1, notes.A4, Minor)
+	chord2 := NewChord(Bar, 1, notes.E5, Minor)
+	chord3 := NewChord(Bar, 1, notes.D4, Minor)
+	chord4 := NewChord(Bar, 1, notes.G4, Major)
 
 	chordProgression := chord1.Add(chord2).Add(chord3).Add(chord4)
 

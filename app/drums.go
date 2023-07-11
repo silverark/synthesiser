@@ -8,10 +8,10 @@ import (
 )
 
 func NewHighHat(volume float64) *signal.Signal {
-	a := 0.0  
-	d := 0.01 
-	s := 0.1  
-	r := 0.02 
+	a := 0.0
+	d := 0.01
+	s := 0.1
+	r := 0.02
 
 	noiseDuration := a + d + r
 
@@ -20,10 +20,10 @@ func NewHighHat(volume float64) *signal.Signal {
 }
 
 func NewKickDrum(volume float64) *signal.Signal {
-	a := 0.01  
-	d := 0.1   
-	s := 0.0  
-	r := 0.1   
+	a := 0.01
+	d := 0.1
+	s := 0.0
+	r := 0.1
 
 	soundDuration := a + d + r
 	frequency := 60.0
@@ -40,10 +40,10 @@ func NewKickDrum(volume float64) *signal.Signal {
 }
 
 func NewSnare(volume float64) *signal.Signal {
-	a := 0.01 
-	d := 0.1 
-	s := 0.0  
-	r := 0.1 
+	a := 0.01
+	d := 0.1
+	s := 0.0
+	r := 0.1
 
 	soundDuration := a + d + r
 	toneFrequency := 200.0
@@ -63,7 +63,7 @@ func WhiteNoise(duration, volume float64) *signal.Signal {
 	}
 
 	return &signal.Signal{
-		Data:     signalData,
+		Data:       signalData,
 		SampleRate: SampleRate,
 	}
 }

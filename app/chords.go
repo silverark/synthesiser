@@ -6,15 +6,35 @@ import (
 	"synth/app/signal"
 )
 
-func NewAMinorChord(duration, volume float64) *signal.Signal {
-	aFreq := notes.A4
-	cFreq := notes.C5
-	eFreq := notes.E5
+type ChordType int
 
-	outputSignal := signal.NewSineWave(aFreq, duration, volume, SampleRate).Generate()
+const (
+	Major ChordType = iota
+	Minor
+)
+
+// NewChord creates a chord based on the base note and if you want Major or Minor
+// Major Triads have 4 semitones then 3 semitones
+// Minor triads have 3 semitones then 4 semitones
+func NewChord(duration, volume float64, baseNote notes.Note, chordType ChordType) *signal.Signal {
+	//for major chords lets set the steps to 4 and 3
+	secondStep := 4
+	thirdStep := 7
+	//for minor chords lets set the steps to 3 and 4
+	if chordType == Minor {
+		secondStep = 3
+		thirdStep = 7
+	}
+
+	first := notes.Freq(baseNote)
+	second := notes.Freq(baseNote.Add(secondStep))
+	third := notes.Freq(baseNote.Add(thirdStep))
+
+	// TODO: If the NewSineWave accepted multiple frequencies it could generate the chord in one call.
+	outputSignal := signal.NewSineWave(first, duration, volume, SampleRate).Generate()
 	outputSignal = outputSignal.Superpose(
-		signal.NewSineWave(cFreq, duration, volume, SampleRate).Generate(),
-		signal.NewSineWave(eFreq, duration, volume, SampleRate).Generate(),
+		signal.NewSineWave(second, duration, volume, SampleRate).Generate(),
+		signal.NewSineWave(third, duration, volume, SampleRate).Generate(),
 	)
 	return outputSignal
 }
@@ -28,32 +48,6 @@ func NewEMinorChord(duration, volume float64) *signal.Signal {
 	outputSignal = outputSignal.Superpose(
 		signal.NewSineWave(gFreq, duration, volume, SampleRate).Generate(),
 		signal.NewSineWave(bFreq, duration, volume, SampleRate).Generate(),
-	)
-	return outputSignal
-}
-
-func NewDMinorChord(duration, volume float64) *signal.Signal {
-	dFreq := 440 * math.Pow(2, 5.0/12) // D5
-	fFreq := 440 * math.Pow(2, 9.0/12) // F5
-	aFreq := 440.0                     // A4
-
-	outputSignal := signal.NewSineWave(dFreq, duration, volume, SampleRate).Generate()
-	outputSignal = outputSignal.Superpose(
-		signal.NewSineWave(fFreq, duration, volume, SampleRate).Generate(),
-		signal.NewSineWave(aFreq, duration, volume, SampleRate).Generate(),
-	)
-	return outputSignal
-}
-
-func NewGMajorChord(duration, volume float64) *signal.Signal {
-	gFreq := 440 * math.Pow(2, -2.0/12) // G4
-	bFreq := 440 * math.Pow(2, 2.0/12)  // B4
-	dFreq := 440 * math.Pow(2, 5.0/12)  // D5
-
-	outputSignal := signal.NewSineWave(gFreq, duration, volume, SampleRate).Generate()
-	outputSignal = outputSignal.Superpose(
-		signal.NewSineWave(bFreq, duration, volume, SampleRate).Generate(),
-		signal.NewSineWave(dFreq, duration, volume, SampleRate).Generate(),
 	)
 	return outputSignal
 }
