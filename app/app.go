@@ -6,10 +6,10 @@ import (
 
 const (
 	SampleRate float64 = 44100.0
-	Volume float64 = 0.5 // 0.5 is the max
-	OutputFile string = "/Users/shaunbillows/coding/projects/synth/app/track.wav"
-	Bpm = 120 // beats per minute
-	Bar = 60.0 / Bpm * 4 // seconds
+	Volume     float64 = 0.5 // 0.5 is the max
+	OutputFile string  = "track.wav"
+	Bpm                = 120            // beats per minute
+	Bar                = 60.0 / Bpm * 4 // seconds
 )
 
 type App struct{}
@@ -27,11 +27,11 @@ func (a *App) Run() {
 	kickDrum := NewKickDrum(2)
 	snare := NewSnare(1)
 
-	kickDrumLoop := Sequencer(kickDrum, 4 * Bar, Bpm, false)
-	snareLoop := Sequencer(snare, 4 * Bar, Bpm/2, true)
+	kickDrumLoop := Sequencer(kickDrum, 4*Bar, Bpm, false)
+	snareLoop := Sequencer(snare, 4*Bar, Bpm/2, true)
 
-	highHatLoopStraight := Sequencer(highHat, 4 * Bar, Bpm, true)
-	HighHatLoopPolyrhythm := Sequencer(highHat, 4 * Bar, Bpm/3, true)
+	highHatLoopStraight := Sequencer(highHat, 4*Bar, Bpm, true)
+	HighHatLoopPolyrhythm := Sequencer(highHat, 4*Bar, Bpm/3, true)
 	highHatLoop := highHatLoopStraight.Superpose(HighHatLoopPolyrhythm)
 
 	chord1 := NewAMinorChord(Bar, 1)
