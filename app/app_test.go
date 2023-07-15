@@ -1,7 +1,6 @@
 package app
 
 import (
-	"synth/app/chart"
 	"synth/app/envelope"
 	"synth/app/notes"
 	"synth/app/output"
@@ -33,7 +32,7 @@ func TestNewSineWaveWithEnvelope(t *testing.T) {
 	c5ShapeOscillate32 := signal.NewSineWaveWithEnvelope(notes.Freq(notes.C5), Bar, 0.5, SampleRate, envelope.ShapeOscillate32).Generate()
 	c5drop := signal.NewSineWaveWithEnvelope(notes.Freq(notes.C5), Bar/2, 0.5, SampleRate, envelope.ShapeDrop).Generate()
 
-	chart.ChartIt("c5-drop", c5drop.Data)
+	//chart.ChartIt("c5-drop", c5drop.Data)
 
 	song := c5.Add(c5Sine).Add(c5Sine).Add(c5Linear).Add(c5ShapeOscillate).Add(c5ShapeOscillate20).Add(c5ShapeOscillate30).Add(c5ShapeOscillate32).Add(c5drop)
 
