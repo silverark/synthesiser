@@ -11,3 +11,4 @@ https://www.mathworks.com/help/audio/ref/reverberator-system-object.html
 
 Digial Audio Effect paper
 https://www.ece.rutgers.edu/~orfanidi/ece348/lab5.pdf
+https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=068defeda78141718232be06e7e92b292d901164
