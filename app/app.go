@@ -29,11 +29,11 @@ func (a *App) Run() {
 	snare := NewSnare(1)
 
 	kickDrumLoop := Sequencer(kickDrum, 4*Bar, Bpm, false)
-	snareLoop := Sequencer(snare, 4*Bar, Bpm/2, true)
+	snareLoop := Sequencer(snare, 4*Bar, Bpm / 2, true)
 
 	highHatLoopStraight := Sequencer(highHat, 4*Bar, Bpm, true)
-	HighHatLoopPolyrhythm := Sequencer(highHat, 4*Bar, Bpm/3, true)
-	highHatLoop := highHatLoopStraight.Superpose(HighHatLoopPolyrhythm)
+	highHatLoopPolyrhythm := Sequencer(highHat, 4*Bar, Bpm / 3, true)
+	highHatLoop := highHatLoopStraight.Superpose(highHatLoopPolyrhythm)
 
 	chord1 := NewChord(Bar, 1, notes.A4, Minor)
 	chord2 := NewChord(Bar, 1, notes.E5, Minor)
@@ -44,11 +44,12 @@ func (a *App) Run() {
 
 	intro := chordProgression
 	verse := chordProgression.Superpose(kickDrumLoop, snareLoop)
-	chorus := verse.Superpose(highHatLoop)
-	bridge := verse.Superpose(snare, highHat, kickDrum)
+	chorus := chordProgression.Superpose(kickDrumLoop, snareLoop, highHatLoop)
+	bridge := verse.Superpose(snare)
 	chorus2 := chorus.Superpose(highHat)
+	outro := chordProgression.Superpose(kickDrumLoop)
 
-	track := intro.Add(verse).Add(chorus).Add(bridge).Add(chorus2)
+	track := intro.Add(verse).Add(chorus).Add(bridge).Add(chorus2).Add(outro)
 
 	track.Write(output, Volume)
 }
